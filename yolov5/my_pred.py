@@ -137,8 +137,8 @@ def run(
 
 def main():
     check_requirements(exclude=('tensorboard', 'thop'))
-    weight_path = '/home/parthpanchal/RND/YOLO/weights/best.pt'
-    image_path = '/home/parthpanchal/RND/YOLO/dataset/images/test/orange.jpg'
+    weight_path = '../weights/best.pt'
+    image_path = '../dataset/images/test/orange.jpg'
     run(weights=Path(weight_path), source=Path(image_path))
 
 

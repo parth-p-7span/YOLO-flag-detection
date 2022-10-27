@@ -250,9 +250,9 @@ def parse_opt():
 
 def main():
     check_requirements(exclude=('tensorboard', 'thop'))
-    weight_path = '/home/parthpanchal/RND/YOLO/weights/best.pt'
+    weight_path = '../weights/best.pt'
     # image_path = 'https://upload.wikimedia.org/wikipedia/commons/0/0d/Flag_hoisting_ceremony_of_Independence_day_in_Bhuj.jpg'
-    image_path = '/home/parthpanchal/RND/YOLO/dataset/images/test/24.jpg'
+    image_path = '../dataset/images/test/24.jpg'
     run(weights=Path(weight_path), source=Path(image_path))
 
 
