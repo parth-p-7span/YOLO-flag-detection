@@ -3,6 +3,8 @@ A project to identify the colour of a flag from a photograph. [YOLO](https://git
 
 ## Installation
 
+### Please follow [My GuideBook](https://github.com/parth-p-7span/my-python-guidebook/blob/main/README.md) if you are new to Python programming.
+
 1. Install Python3.x in your machine
 2. Clone this repository in your workspace
 ```shell
