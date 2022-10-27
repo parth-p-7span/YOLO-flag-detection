@@ -8,7 +8,7 @@ A project to identify the colour of a flag from a photograph. [YOLO](https://git
 ```shell
 git clone https://github.com/parth-p-7span/YOLO-flag-detection.git
 ```
-3. Navigate to discord-bot-python folder in your terminal/CMD
+3. Navigate to YOLO-flag-detection folder in your terminal/CMD
 ```shell
 cd YOLO-flag-detection
 ```
