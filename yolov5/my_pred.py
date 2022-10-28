@@ -71,6 +71,7 @@ def run(
     model.warmup(imgsz=(1 if pt or model.triton else bs, 3, *imgsz))  # warmup
     seen, windows, dt = 0, [], (Profile(), Profile(), Profile())
     for path, im, im0s, vid_cap, s in dataset:
+        print(im)
         with dt[0]:
             im = torch.from_numpy(im).to(model.device)
             im = im.half() if model.fp16 else im.float()  # uint8 to fp16/32
@@ -137,8 +138,8 @@ def run(
 
 def main():
     check_requirements(exclude=('tensorboard', 'thop'))
-    weight_path = '../weights/best.pt'
-    image_path = '../dataset/images/test/orange.jpg'
+    weight_path = '/home/parthpanchal/RND/YOLO/weights/best.pt'
+    image_path = '/home/parthpanchal/RND/YOLO/dataset/images/test/orange.jpg'
     run(weights=Path(weight_path), source=Path(image_path))
 
 

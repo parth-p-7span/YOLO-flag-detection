@@ -2,6 +2,7 @@ from PIL import Image
 import extcolors
 
 
+# this function will convert RGB color to HSV color
 def rgb_to_hsv(r, g, b):
     r, g, b = r / 255.0, g / 255.0, b / 255.0
 
@@ -30,6 +31,7 @@ def rgb_to_hsv(r, g, b):
     return h, s, v
 
 
+# this function will return the most used color in HSV format from given Pillow Image
 def get_hsv_color(img):
     output_width = 900
     wpercent = (output_width / float(img.size[0]))
@@ -55,6 +57,7 @@ def get_hsv_color(img):
     return h, s, v
 
 
+# this function will assign HSV color to its respective label
 def map_color(h, s, v):
     green_boundaries = [i for i in range(80, 150)]
     yellow_boundaries = [i for i in range(50, 70)]
@@ -78,6 +81,7 @@ def map_color(h, s, v):
     return result
 
 
+# this function will check if given HSV color falls in range of sky color
 def is_sky(h, s, v):
     sky_range = [i for i in range(160, 240)]
     # s < 40 and v > 70
