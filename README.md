@@ -1,6 +1,13 @@
 # Flag detection using YOLO
 A project to identify the colour of a flag from a photograph. [YOLO](https://github.com/ultralytics/yolov5) has been used in the development of this project.
 
+## Prerequisite
+
+- Python3
+- Flask
+- [YOLOv5](https://github.com/ultralytics/yolov5)
+- Object Detection
+
 ## Installation
 
 ### Please follow [My GuideBook](https://github.com/parth-p-7span/my-python-guidebook/blob/main/README.md) if you are new to Python programming.
