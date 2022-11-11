@@ -39,8 +39,11 @@ def get_hsv_color(img):
     colors, _ = colors_x
     dominant_color = colors[0][0]
     h, s, v = rgb_to_hsv(dominant_color[0], dominant_color[1], dominant_color[2])
+
     index = 0
-    while is_sky(h, s, v):
+
+    while is_sky and is_white(h, s, v):
+
         # try:
         # print('is_sky : ', is_sky(h, s, v))
         dominant_color = colors[index][0]
@@ -53,6 +56,9 @@ def get_hsv_color(img):
 
     print('dominant color is => ', dominant_color, (h, s, v))
     return h, s, v
+
+
+
 
 
 def map_color(h, s, v):
@@ -81,7 +87,17 @@ def map_color(h, s, v):
 def is_sky(h, s, v):
     sky_range = [i for i in range(160, 240)]
     # s < 40 and v > 70
-    if s < 40 and v > 50:
+    if v > 50:
         if int(h) in sky_range:
             return True
+
     return False
+
+
+def is_white(h, s, v):
+    if s < 5 and v > 95:
+        return True
+    else:
+        return False
+
+

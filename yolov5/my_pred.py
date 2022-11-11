@@ -2,9 +2,10 @@ import os
 import sys
 from pathlib import Path
 from PIL import Image
-from color_extractor import get_hsv_color, map_color
-
+from yolov5.color_extractor import get_hsv_color, map_color
+from flask import jsonify
 import torch
+from datetime import datetime
 
 FILE = Path(__file__).resolve()
 ROOT = FILE.parents[0]  # YOLOv5 root directory
@@ -112,14 +113,21 @@ def run(
                     s += f"{n} {names[int(c)]}{'s' * (n > 1)}, "  # add to string
 
                 # Write results
+                image = []
                 for *xyxy, conf, cls in reversed(det):
                     temp_im = Image.open(source).convert('RGB')
                     box = tuple(int(i) for i in xyxy)
                     temp_im = temp_im.crop(box=box)
-                    # temp_im.save(f'/home/parthpanchal/RND/YOLO/output/{datetime.now()}.jpg')
+                    temp_im.save(os.path.join('output', str(conf)+".jpg"))
                     h, s, v = get_hsv_color(temp_im)
                     result = map_color(h, s, v)
-                    print("====>> FLAG COLOR : ", result)
+                    flag_dict = {
+                        "FLAG COLOR": result,
+                        "dominant color is": get_hsv_color(temp_im)
+                    }
+                    # image.append(result)
+                    # print("====>> FLAG COLOR : ", result)
+
                     if save_img or save_crop or view_img:  # Add bbox to image
                         c = int(cls)  # integer class
                         label = None if hide_labels else (names[c] if hide_conf else f'{names[c]} {conf:.2f}')
@@ -127,20 +135,25 @@ def run(
 
         # Print time (inference-only)
         LOGGER.info(f"{s}{'' if len(det) else '(no detections), '}{dt[1].dt * 1E3:.1f}ms")
-
+        return flag_dict
     # Print results
     t = tuple(x.t / seen * 1E3 for x in dt)  # speeds per image
     LOGGER.info(f'Speed: %.1fms pre-process, %.1fms inference, %.1fms NMS per image at shape {(1, 3, *imgsz)}' % t)
+
     if update:
         strip_optimizer(weights[0])  # update model (to fix SourceChangeWarning)
 
+# def main():
+#     check_requirements(exclude=('tensorboard', 'thop'))
+#     weight_path = '../weights/best.pt'
+#     image_path = '../temp/temp.jpg'
+#
+#     run(weights=Path(weight_path), source=Path(image_path))
 
-def main():
-    check_requirements(exclude=('tensorboard', 'thop'))
-    weight_path = '../weights/best.pt'
-    image_path = '../dataset/images/test/orange.jpg'
-    run(weights=Path(weight_path), source=Path(image_path))
+
+# if __name__ == "__main__":
+#     main()
 
 
-if __name__ == "__main__":
-    main()
+
+# s 's ondition should be less than 5 and v's condition should be greter than 95
